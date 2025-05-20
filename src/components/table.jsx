@@ -1,16 +1,17 @@
 import { Table } from "@mantine/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Modal, Input, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Buttons from "./button";
 import { useArray } from "../arrayContext";
-
+import { ThemeContext } from "../themeContext";
 export default function Tables() {
   const [opened, { open, close }] = useDisclosure(false);
   const { array, setArray } = useArray();
   const [userIdd, setUserIdd] = useState(null);
   const [state, setState] = useState(false);
+  const { theme } = useContext(ThemeContext);
   const [item, setItem] = useState({
     first_name: "",
     last_name: "",
@@ -109,6 +110,11 @@ export default function Tables() {
     <div className="p-10 space-y-5">
       <div>
         <Modal
+          styles={{
+            content: { backgroundColor: theme ? "#124559" : "white" },
+            header: { backgroundColor: theme ? "#124559" : "white" },
+            title: { color: theme ? "white" : "" },
+          }}
           opened={opened}
           onClose={() => {
             setState(false);
@@ -161,7 +167,7 @@ export default function Tables() {
                   setState(false);
                 }}
                 type="submit"
-                color="gray"
+                color={theme ? "white" : "gray"}
                 mt={10}
                 variant="outline"
               >
@@ -171,16 +177,21 @@ export default function Tables() {
           </form>
         </Modal>
         <Button
-          bg={"#aec3b0"}
+          bg={theme ? "#124559" : "#aec3b0"}
           onClick={() => {
             open();
             setState(false);
+            setItem({});
           }}
         >
           Add
         </Button>
       </div>
-      <Table.ScrollContainer minWidth={"500px"} maxHeight={"400px"}>
+      <Table.ScrollContainer
+        minWidth={"500px"}
+        maxHeight={"400px"}
+        maw={"100%"}
+      >
         <Table withTableBorder={true} horizontalSpacing={"xl"}>
           <Table.Thead>
             <Table.Tr className="bg-primary font-semibold text-center">

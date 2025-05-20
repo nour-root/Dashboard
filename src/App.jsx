@@ -1,11 +1,15 @@
 import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import DashBoard from "./components/dashboard";
+import ThemeProvider from "./themeContext";
+
 function App() {
   return (
-    <MantineProvider>
-      <DashBoard />
-    </MantineProvider>
+    <ThemeProvider>
+      <MantineProvider>
+        <DashBoard />
+      </MantineProvider>
+    </ThemeProvider>
   );
 }
 

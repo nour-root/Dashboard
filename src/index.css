@@ -6,3 +6,4 @@
   --color-dark-secondary: #124559;
   --color-side: #01161e;
 }
+@custom-variant dark (&:where(.dark, .dark *));
